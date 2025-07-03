@@ -10,4 +10,8 @@ public interface UserService {
     List<UserBE> getALlUser();
     UserBE getUserById(Long id);         // Consistent Long
     boolean deleteUser(Long id);         // Fixed from String to Long
+
+    UserBE authenticate(String userName, String password);
+
+    UserBE authenticateByEmail(String email, String password);
 }

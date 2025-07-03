@@ -59,4 +59,31 @@ public class UserServiceIMPL implements UserService {
         userRepository.deleteById(id);
         return true;
     }
+
+
+    @Override
+    public UserBE authenticate(String userName, String password) {
+        Optional<UserBE> optionalUser = userRepository.findByUserName(userName);
+        if (optionalUser.isPresent()) {
+            UserBE user = optionalUser.get();
+            if (passwordEncoder.matches(password, user.getPassword())) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public UserBE authenticateByEmail(String email, String password) {
+        Optional<UserBE> optionalUser = userRepository.findByEmail(email);
+        if (optionalUser.isPresent()) {
+            UserBE user = optionalUser.get();
+            if (passwordEncoder.matches(password, user.getPassword())) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+
 }
